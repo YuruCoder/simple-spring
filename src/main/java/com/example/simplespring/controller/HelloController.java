@@ -30,7 +30,7 @@ public class HelloController {
     @GetMapping("hello-body")
     @ResponseBody
     public Hello helloApi(@RequestParam("name") String name) {
-        Hello hello = new Hello();
+        var hello = new Hello();
         hello.setName(name);
         return hello;
     }
