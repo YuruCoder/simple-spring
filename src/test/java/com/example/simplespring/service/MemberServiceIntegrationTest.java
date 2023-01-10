@@ -1,29 +1,24 @@
 package com.example.simplespring.service;
 
 import com.example.simplespring.domain.Member;
-import com.example.simplespring.repository.MemoryMemberRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.simplespring.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MemberServiceTest {
+@SpringBootTest
+@Transactional
+public class MemberServiceIntegrationTest {
 
+    @Autowired
     MemberService memberService;
-    MemoryMemberRepository memoryMemberRepository;
 
-    @BeforeEach
-    void beforeEach() {
-        memoryMemberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memoryMemberRepository);
-    }
-
-    @AfterEach
-    void afterEach() {
-        memoryMemberRepository.clearStore();
-    }
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     void 회원가입() {
