@@ -1,29 +1,27 @@
 package com.example.simplespring;
 
-import com.example.simplespring.repository.JdbcTemplateMemberRepository;
 import com.example.simplespring.repository.MemberRepository;
 import com.example.simplespring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
-
 @Configuration
 public class SpringConfig {
 
-    private final DataSource dataSource;
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
 
+    /* JPA Data 에서는 필요 없는 물건입니다...
     @Bean
     public MemberRepository memberRepository() {
         // 메모리에 저장
@@ -32,6 +30,11 @@ public class SpringConfig {
         // h2 database 에 저장 (고전적 방법)
         // return new JdbcMemberRepository(dataSource);
 
-        return new JdbcTemplateMemberRepository(dataSource);
+        // h2 database 에 저장 (템플릿 사용)
+        // return new JdbcTemplateMemberRepository(dataSource);
+
+        // JPA 사용
+        // return new JpaMemberRepository(em);
     }
+     */
 }
